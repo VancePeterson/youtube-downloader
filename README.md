@@ -18,6 +18,7 @@ A modern, dark-themed GUI application to download YouTube videos and audio using
 ![image](https://github.com/user-attachments/assets/cb17a067-449f-4999-ade2-8a7c16e55aab)
 
 
+
 📦 Requirements
 Install the required packages using pip:
 
