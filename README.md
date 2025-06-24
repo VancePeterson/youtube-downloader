@@ -1,6 +1,6 @@
 # 🎥 YouTube Downloader GUI
 
-A modern, dark-themed GUI application to download YouTube videos and audio using [yt-dlp](https://github.com/yt-dlp/yt-dlp), with support for video previews, multiple formats (MP4, MP3, M4A), and a sleek Apple-style interface powered by `customtkinter`.
+A modern, dark-themed GUI application to download YouTube videos and audio using [yt-dlp](https://github.com/yt-dlp/yt-dlp), with support for video previews, multiple formats (MP3, MP4), and a sleek Apple-style interface powered by `customtkinter`.
 
 ---
 
