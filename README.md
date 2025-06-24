@@ -24,17 +24,15 @@ A modern, dark-themed GUI application to download YouTube videos and audio using
 ## 📦 Requirements
 Install the required packages using pip:
 
-bash
-Copy
-Edit
+```bash
 pip install yt-dlp imageio-ffmpeg pillow customtkinter
-▶️ How to Run
+```
+## ▶️ How to Run
 Run the app using:
 
-bash
-Copy
-Edit
+```bash
 python main.py
+```
 Once open:
 
 Paste a valid YouTube URL.
@@ -47,7 +45,7 @@ Hit "Download" to begin.
 
 Downloads are saved to your system’s Downloads folder.
 
-🔧 Under the Hood
+## 🔧 Under the Hood
 Downloader engine: yt-dlp with format control and ffmpeg post-processing.
 
 FFmpeg integration: Uses imageio-ffmpeg to locate ffmpeg executable.
@@ -58,7 +56,7 @@ Metadata fetching: Extracts title, thumbnail, uploader, and duration without dow
 
 GUI Framework: customtkinter (a modern wrapper around tkinter) for a clean UI.
 
-💡 Future Improvements
+## 💡 Future Improvements
 Download queue and history
 
 Support for playlist downloads
@@ -67,9 +65,9 @@ Built-in ffmpeg bundling
 
 Error reporting/logging window
 
-⚠️ Disclaimer
+## ⚠️ Disclaimer
 This project is for educational use only. Download content only if you have the right to do so. Respect content creators and platform terms of service.
 
-🛠️ License
+## 🛠️ License
 MIT License © 2025
 
