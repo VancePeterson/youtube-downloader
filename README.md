@@ -1,20 +1,19 @@
-🎥 YouTube Downloader GUI
-A modern, dark-themed GUI application to download YouTube videos and audio using yt-dlp, with support for video previews, multiple formats (MP4, MP3, M4A), and a sleek Apple-style interface powered by customtkinter.
+# 🎥 YouTube Downloader GUI
 
-✨ Features
-✅ Download videos as MP4 or audio as MP3
+A modern, dark-themed GUI application to download YouTube videos and audio using [yt-dlp](https://github.com/yt-dlp/yt-dlp), with support for video previews, multiple formats (MP4, MP3, M4A), and a sleek Apple-style interface powered by `customtkinter`.
 
-🖼️ Live preview of video thumbnail, title, uploader, and duration
+---
 
-📶 Real-time progress bar with status updates
+## ✨ Features
 
-🎨 Clean and modern dark-themed UI using customtkinter
+- ✅ Download videos as MP4 or audio as MP3/M4A
+- 🖼️ Live preview of video thumbnail, title, uploader, and duration
+- 📶 Real-time progress bar with status updates
+- 🎨 Clean and modern dark-themed UI using `customtkinter`
+- 🧠 Smart threading so the UI stays responsive during downloads
+- ⚙️ Uses `ffmpeg` for merging and audio extraction
 
-🧠 Smart threading so the UI stays responsive during downloads
-
-⚙️ Uses ffmpeg for merging and audio extraction
-
-📸 UI Preview
+## 📸 UI Preview
 
 ![image](https://github.com/user-attachments/assets/cb17a067-449f-4999-ade2-8a7c16e55aab)
 
@@ -22,7 +21,7 @@ A modern, dark-themed GUI application to download YouTube videos and audio using
 
 
 
-📦 Requirements
+## 📦 Requirements
 Install the required packages using pip:
 
 bash
