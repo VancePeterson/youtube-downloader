@@ -15,6 +15,7 @@ A modern, dark-themed GUI application to download YouTube videos and audio using
 ⚙️ Uses ffmpeg for merging and audio extraction
 
 📸 UI Preview
+
 ![image](https://github.com/user-attachments/assets/cb17a067-449f-4999-ade2-8a7c16e55aab)
 
 
