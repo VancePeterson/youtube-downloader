@@ -19,6 +19,8 @@ A modern, dark-themed GUI application to download YouTube videos and audio using
 
 
 
+
+
 📦 Requirements
 Install the required packages using pip:
 
