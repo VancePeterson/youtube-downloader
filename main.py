@@ -15,8 +15,14 @@ from customtkinter import CTkImage
 
 import re
 
+
+def is_valid_youtube_url(url: str) -> bool:
+    pattern = re.compile(r"^(https?://)?(www\.)?(youtube\.com|youtu\.be)/")
+    return bool(pattern.match(url))
+
+
 # GUI download logic
-def download_video(url, format_choice, status_label, progress_bar):
+def download_video(url, format_choice, status_label, progress_bar, download_btn):
     ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
     downloads_path = str(Path.home() / "Downloads")
 
@@ -72,6 +78,8 @@ def download_video(url, format_choice, status_label, progress_bar):
     except Exception as e:
         status_label.configure(text="❌ Download failed", text_color="red")
         messagebox.showerror("Error", str(e))
+    finally:
+        download_btn.configure(state="normal", text="Download")
 
 # Strip ansi
 def strip_ansi(text):
@@ -99,7 +107,7 @@ def update_progress(d, status_label, progress_bar):
         progress_bar.set(1.0)
 
 # Fetch metadata and preview
-def fetch_preview(url, title_label, thumb_label, meta_label):
+def fetch_preview(url, title_label, thumb_label, meta_label, preview_btn):
     try:
         ydl_opts = {'quiet': True, 'skip_download': True}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -117,15 +125,41 @@ def fetch_preview(url, title_label, thumb_label, meta_label):
             thumb_label.image = thumb
     except Exception as e:
         messagebox.showerror("Preview Error", f"Could not load preview.\n{e}")
+    finally:
+        preview_btn.configure(state="normal", text="Load URL")
 
 # Start threaded download
-def start_download(entry, format_var, status_label, progress_bar):
+def start_download(entry, format_var, status_label, progress_bar, download_btn):
     url = entry.get().strip()
     if not url:
         messagebox.showwarning("Missing URL", "Please enter a YouTube URL.")
         return
+    if not is_valid_youtube_url(url):
+        messagebox.showerror("Invalid URL", "Please enter a valid YouTube URL.")
+        return
     progress_bar.set(0)
-    threading.Thread(target=download_video, args=(url, format_var.get(), status_label, progress_bar), daemon=True).start()
+    download_btn.configure(state="disabled", text="Downloading...")
+    threading.Thread(
+        target=download_video,
+        args=(url, format_var.get(), status_label, progress_bar, download_btn),
+        daemon=True,
+    ).start()
+
+
+def start_fetch_preview(entry, title_label, thumb_label, meta_label, preview_btn):
+    url = entry.get().strip()
+    if not url:
+        messagebox.showwarning("Missing URL", "Please enter a YouTube URL.")
+        return
+    if not is_valid_youtube_url(url):
+        messagebox.showerror("Invalid URL", "Please enter a valid YouTube URL.")
+        return
+    preview_btn.configure(state="disabled", text="Loading...")
+    threading.Thread(
+        target=fetch_preview,
+        args=(url, title_label, thumb_label, meta_label, preview_btn),
+        daemon=True,
+    ).start()
 
 # Main UI
 def main_gui():
@@ -156,22 +190,26 @@ def main_gui():
     meta_label = ctk.CTkLabel(app, text="", font=apple_font_small)
     meta_label.pack()
 
-    preview_btn = ctk.CTkButton(app, text="Load URL", font=apple_font_body, command=lambda: fetch_preview(url_entry.get(), title_label, thumb_label, meta_label))
+    preview_btn = ctk.CTkButton(app, text="Load URL", font=apple_font_body)
     preview_btn.pack(pady=5)
 
     format_var = ctk.StringVar(value="Video (MP4)")
     format_menu = ctk.CTkOptionMenu(app, values=["Video (MP4)", "Audio (MP3)"], variable=format_var, font=apple_font_body)
     format_menu.pack(pady=10)
 
-    download_btn = ctk.CTkButton(app, text="Download", font=apple_font_body, command=lambda: start_download(url_entry, format_var, status_label, progress_bar))
-    download_btn.pack(pady=10)
-
     progress_bar = ctk.CTkProgressBar(app, width=460)
     progress_bar.set(0)
-    progress_bar.pack(pady=5)
 
     status_label = ctk.CTkLabel(app, text="", font=apple_font_body)
+
+    download_btn = ctk.CTkButton(app, text="Download", font=apple_font_body)
+    download_btn.pack(pady=10)
+
+    progress_bar.pack(pady=5)
     status_label.pack(pady=5)
+
+    preview_btn.configure(command=lambda btn=preview_btn: start_fetch_preview(url_entry, title_label, thumb_label, meta_label, btn))
+    download_btn.configure(command=lambda btn=download_btn: start_download(url_entry, format_var, status_label, progress_bar, btn))
 
     app.mainloop()
 
